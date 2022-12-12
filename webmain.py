@@ -1,5 +1,9 @@
 from os import getenv
 
-
-from os import getenv
 from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def main():
+    return "Hi there"
