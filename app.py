@@ -8,10 +8,10 @@ app = Flask(__name__)
 def index():
     return "Hi there"
 
-@app.route("/home")
+@app.route("/home/")
 def home():
     return "Home page"
 
-@app.route("/lore")
+@app.route("/lore/")
 def lore():
     return "Lore page"
