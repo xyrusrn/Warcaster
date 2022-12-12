@@ -1,0 +1,9 @@
+flask
+flask-mail
+bcrypt
+python-dotenv
+wheel
+gunicorn 
+wtforms
+email-validator
+mysqlclient
