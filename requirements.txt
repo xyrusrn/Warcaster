@@ -7,3 +7,7 @@ gunicorn
 wtforms
 email-validator
 mysqlclient
+flask-sqlalchemy
+flask-login
+werkzeug
+pandas
