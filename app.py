@@ -11,3 +11,7 @@ def index():
 @app.route("/home")
 def home():
     return "Home page"
+
+@app.route("/lore")
+def lore():
+    return "Lore page"
