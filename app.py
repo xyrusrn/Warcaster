@@ -9,6 +9,10 @@ app = Flask(__name__)
 def index():
     return "Hi there"
 
+@app.route("/login/")
+def home():
+    return "Login page"
+
 @app.route("/home/")
 def home():
     return "Home page"
