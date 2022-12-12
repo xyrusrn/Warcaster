@@ -1,6 +1,3 @@
-########################################################################################
-######################          Import packages      ###################################
-########################################################################################
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User
@@ -10,8 +7,8 @@ from __init__ import db
 
 auth = Blueprint('auth', __name__) # create a Blueprint object that we name 'auth'
 
-@auth.route('/login', methods=['GET', 'POST']) # define login page path
-def login(): # define login page fucntion
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method=='GET': # if the request is a GET we return the login page
         return render_template('login.html')
     else: # if the request is POST the we check if the user exist and with te right password
@@ -31,8 +28,8 @@ def login(): # define login page fucntion
         login_user(user, remember=remember)
         return redirect(url_for('main.profile'))
 
-@auth.route('/signup', methods=['GET', 'POST'])# we define the sign up path
-def signup(): # define the sign up function
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
     if request.method=='GET': # If the request is GET we return the sign up page and forms
         return render_template('signup.html')
     else: # if the request is POST, then we check if the email doesn't already exist and then we save data
@@ -50,8 +47,8 @@ def signup(): # define the sign up function
         db.session.commit()
         return redirect(url_for('auth.login'))
 
-@auth.route('/logout') # define logout path
+@auth.route('/logout')
 @login_required
-def logout(): #define the logout function
+def logout():
     logout_user()
     return redirect(url_for('main.index'))

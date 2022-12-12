@@ -1,15 +1,9 @@
-################################################################################
-##########################         import packages         #####################
-################################################################################
 import mysql.connector as MySQLdb
 import sys
 sys.path.insert(0,'../.')
 import config
 import pandas as pd
 
-################################################################################
-########################## Create Database on mysql server #####################
-################################################################################
 def create_db(mysql_user=config.mysql_user, mysql_password=config.mysql_password ,mysql_host=config.mysql_host, db_name=config.db_name):
     try:
         conn = MySQLdb.connect(user=mysql_user, host=mysql_host, password=mysql_password)
@@ -25,10 +19,6 @@ def create_db(mysql_user=config.mysql_user, mysql_password=config.mysql_password
     except:
         print("I am unable to connect to the database")
 
-
-################################################################################
-########################## Create Database on mysql server #####################
-################################################################################
 def create_table(mysql_user=config.mysql_user, mysql_password=config.mysql_password ,mysql_host=config.mysql_host,table_name=config.table_name, db_name=config.db_name):
     try:
         conn = MySQLdb.connect(user=mysql_user, host=mysql_host, password=mysql_password,  database=db_name)
