@@ -4,34 +4,25 @@ import os
 app = Flask (__name__)  
 user = {"username", "abc", "password", "xyz"}
 
-@app.route("/")
-def index():
-    return redirect(url_for('login'))
+@app.route('/')
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return "Hello Boss!  <a href="/logout/">Logout</a>"
 
-@app.route("/login/", methods = ['POST', 'GET'])
-def login():
-    if(request.method == 'POST'):
-        username = request.form.get('username')
-        password = request.form.get('password')
-        if username == user['username'] and password == user['password']:
+@app.route('/login/', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
 
-            session['user'] = username
-            return redirect (url_for('dashboard'))
-        return "Wrong username or password"
-    
-    return render_template("login.html")
-
-@app.route("/dashboard/")
-def dashboard():
-    if ('user' in session and session ['user'] == user['username']):
-        return "Welcome to the dashboard!"
-    
-    return "You are not logged in."
-
-@app.route('/logout')
+@app.route("/logout/")
 def logout():
-    session.pop('user')         
-    return redirect(url_for('login'))
+    session['logged_in'] = False
+    return home()
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)  
