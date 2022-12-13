@@ -19,5 +19,5 @@ def login():
             return redirect('/dashboard/')
         return "Wrong username or password"
     
-    return "Forced Login"
+    return render_template("login.html")
 
