@@ -4,7 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-
+sucode_nh = '@ka!d1s'
+sucode_gen=generate_password_hash(sucode_nh, method='sha256')
 
 auth = Blueprint('auth', __name__)
 
@@ -40,6 +41,7 @@ def signup():
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        sucode = request.form.get('sucode')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -52,13 +54,15 @@ def signup():
             flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
             flash('Passwords must be at least 7 characters.', category='error')
-        else:
+        elif check_password_hash(sucode_gen, sucode):
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='succes')
             return redirect(url_for('views.home'))
+        else: 
+            flash('Your sign-up code is not correct', category='error')
 
 
     return render_template("sign-up.html", user=current_user)
