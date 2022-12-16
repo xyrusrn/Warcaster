@@ -36,7 +36,7 @@ def delete_char():
 @login_required
 def notes():
     if request.method == 'POST':
-        note = request.form.get('note')
+        note = (request.form.get('notes'))
 
         if len(note) < 1:
             flash('Note is too short!', category='error')
